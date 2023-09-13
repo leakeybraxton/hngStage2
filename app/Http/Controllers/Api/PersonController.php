@@ -35,46 +35,46 @@ class PersonController extends Controller
         
     }
 
-    // public function store(Request $request){
+    public function store(Request $request){
 
-    //     $validator = Validator::make($request->all(), [
-    //         'name' => 'required|string|max:191',
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:191',
             
-    //     ]);
+        ]);
 
-    //     if($validator ->fails()){
+        if($validator ->fails()){
 
-    //         return response()->json([
-    //             'status' => 422,
-    //             'errors' => $validator->messages()
-    //         ], 422);
-    //     }else{
+            return response()->json([
+                'status' => 422,
+                'errors' => $validator->messages()
+            ], 422);
+        }else{
 
-    //         $person =Person::create([
-    //             'name' => $request->name,
+            $person =Person::create([
+                'name' => $request->name,
                 
-    //         ]);
+            ]);
 
-    //         if($person){
+            if($person){
 
-    //             return response()->json([
-    //                 'status' => 200,
-    //                 'message' => "Person created successfully"
-    //             ],200);
-    //         }else{
-    //             return response()->json([
-    //                 'status' => 500,
-    //                 'message' => "Something went wrong"
-    //             ],500);
-    //         }
-    //     }
-    // }
-
-    public function store(StorePersonRequest $request)
-    {
-        Person::create($request->all());
-        return response()->json(['Success' => "Details Inserted"], 200);
+                return response()->json([
+                    'status' => 200,
+                    'message' => "Person created successfully"
+                ],200);
+            }else{
+                return response()->json([
+                    'status' => 500,
+                    'message' => "Something went wrong"
+                ],500);
+            }
+        }
     }
+
+    // public function store(StorePersonRequest $request)
+    // {
+    //     Person::create($request->all());
+    //     return response()->json(['Success' => "Details Inserted"], 200);
+    // }
 
     public function show($id){
         $person = Person::find($id);
@@ -156,6 +156,11 @@ class PersonController extends Controller
         if($person){
 
             $person->delete();
+
+            return response()->json([
+                'status' => 200,
+                'message' => "Person Deleted Successfully."
+            ],200);
 
         }else{
             return response()->json([
