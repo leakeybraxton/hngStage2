@@ -43,6 +43,7 @@ class PersonController extends Controller
         ]);
 
         if($validator ->fails()){
+            
 
             return response()->json([
                 'status' => 422,
@@ -70,7 +71,7 @@ class PersonController extends Controller
         }
     }
 
-    // public function store(StorePersonRequest $request)
+    // public function store(Request $request)
     // {
     //     Person::create($request->all());
     //     return response()->json(['Success' => "Details Inserted"], 200);
