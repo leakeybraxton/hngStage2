@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\PersonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/uploadpage', [PersonController::class, 'uploadpage']);
+Route::post('/uploadproduct', [PersonController::class, 'uploadproduct']);
+Route::get('/show', [PersonController::class, 'showProduct']);
+Route::get('/download/{file}', [PersonController::class, 'download']);
+Route::get('/view/{id}', [PersonController::class, 'view']);

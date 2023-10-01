@@ -6,7 +6,9 @@ use App\Models\Person;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePersonRequest;
+use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Stroage;
 
 class PersonController extends Controller
 {
@@ -169,5 +171,45 @@ class PersonController extends Controller
                 'message' => "No such student found"
             ],200);
         }
+    }
+
+    public function uploadpage(){
+        return view('product');
+    }
+
+    public function uploadproduct(Request $request){
+
+        $data = new Product();
+
+        $file = $request->file;
+        $filename = time().'.'.$file->getClientOriginalExtension();
+        $request->file->move('assets', $filename);
+
+        $data->file = $filename;
+
+        $data->name = $request->name;
+        $data->description = $request->description;
+
+        $data->save();
+        return redirect()->back();
+
+        
+    }
+
+    public function showProduct(){
+        $data = Product::all();
+
+        return view('showProduct', compact('data'));
+    }
+
+    public function download(Request $request, $file){
+        
+       return response()->download(public_path('assets/'. $file));
+    }
+
+    public function view($id){
+        $data = Product::find($id);
+
+        return view('viewProduct', compact('data'));
     }
 }
